@@ -1,0 +1,21 @@
+{% extends 'paginas/modelo.html' %}
+
+<p>
+    * Campo obrigatório
+</p>
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn=primary">
+        Salvar
+    </button>
+
+</form>
+{% endblock %}
