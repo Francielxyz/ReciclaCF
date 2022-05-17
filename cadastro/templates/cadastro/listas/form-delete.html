@@ -4,21 +4,25 @@
 
 {% load crispy_forms_tags %}
 
-<p>
-    * Campos obrigatórios
-</p>
-
 {% block header %}
 {% endblock %}
 
 {% block body %}
+<h1 class="mt-4 text-danger">
+    Exclusão de dados
+</h1>
+
+<p class="lead text-danger">
+    Tem certeza que deseja excluir o registro: <br>
+    {{ object }}
+</p>
 <form method="POST">
     {% csrf_token %}
 
     {{ form|crispy }}
 
-    <button type="submit" class="btn btn-light">
-        Salvar
+    <button type="submit" class="btn btn-danger">
+        Excluír
     </button>
 
 </form>

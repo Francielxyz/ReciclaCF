@@ -21,7 +21,7 @@ class Perfil(models.Model):
     telefone2 = models.CharField(max_length=15, blank=True, null=True, verbose_name="Telefone 2")
     email = models.EmailField(max_length=80, verbose_name="Email")
     observacao = models.CharField(max_length=255, blank=True, null=True, verbose_name="Observação")
-    data_cadastro = models.DateTimeField(verbose_name="Data Cadastro")
+    data_cadastro = models.DateTimeField(verbose_name="Data Cadastro", auto_now_add=True)
     status = models.CharField(max_length=1, default="A")
 
     def __str__(self):
@@ -30,7 +30,7 @@ class Perfil(models.Model):
 class Categoria(models.Model):
     nome = models.CharField(max_length=150, verbose_name="Categoria")
     observacao = models.CharField(max_length=255, blank=True, null=True, verbose_name="Observação")
-    data_cadastro = models.DateTimeField(verbose_name="Data Cadastro")
+    data_cadastro = models.DateTimeField(verbose_name="Data Cadastro", auto_now_add=True)
     status = models.CharField(max_length=1, default="A")
 
     def __str__(self):
@@ -44,7 +44,7 @@ class Endereco_Armazenamento(models.Model):
     endereco_compartilhado = models.BooleanField(
         verbose_name="Endereço Compartilhado?", help_text="Este endereço será compartilhado para outros usuários")
     observacao = models.CharField(max_length=255, blank=True, null=True, verbose_name="Observação")
-    data_cadastro = models.DateTimeField(verbose_name="Data Cadastro")
+    data_cadastro = models.DateTimeField(verbose_name="Data Cadastro", auto_now_add=True)
     status = models.CharField(max_length=1, default="A")
 
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
@@ -64,7 +64,7 @@ class Item_Descartavel(models.Model):
     nome = models.CharField(max_length=100, verbose_name="Item")
     quantidade = models.IntegerField(verbose_name="Quantidade")
     observacao = models.CharField(max_length=255, blank=True, null=True, verbose_name="Observação")
-    data_cadastro = models.DateTimeField(verbose_name="Data Cadastro")
+    data_cadastro = models.DateTimeField(verbose_name="Data Cadastro", auto_now_add=True)
 
     perfil = models.ForeignKey(Perfil, on_delete=models.PROTECT)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
