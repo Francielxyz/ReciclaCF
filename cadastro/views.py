@@ -3,7 +3,7 @@ from re import template
 from statistics import mode
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from .models import Estado, Cidade, Perfil, Categoria, Endereco_Armazenamento, Endereco_Armazenamento_Categoria, Item_Descartavel
+from .models import Estado, Cidade, Perfil, Categoria, Endereco_Armazenamento, Item_Descartavel
 from django.urls import reverse_lazy
 #Impedir que usuários não autenticados acessem uma determinada página
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -39,12 +39,6 @@ class EnderecoArmazenamentoCreate(CreateView):
     fields = ['cep', 'bairro', 'rua', 'numero', 'endereco_compartilhado', 'observacao', 'cidade']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('index')
-
-class EnderecoArmazenamentoCategoriaCreate(CreateView):
-    model = Endereco_Armazenamento_Categoria
-    fields = ['endereco_armazenamento', 'categoria']
-    template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')    
 
 class ItemDescartavelCreate(CreateView):
     model = Item_Descartavel
@@ -83,12 +77,6 @@ class EnderecoArmazenamentoUpdate(UpdateView):
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('index')
 
-class EnderecoArmazenamentoCategoriaUpdate(UpdateView):
-    model = Endereco_Armazenamento_Categoria
-    fields = ['endereco_armazenamento', 'categoria']
-    template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')    
-
 class ItemDescartavelUpdate(UpdateView):
     model = Item_Descartavel
     fields = ['nome', 'quantidade', 'observacao', 'data_cadastro', 'perfil', 'categoria', 'endereco_armazenamento']
@@ -120,11 +108,6 @@ class EnderecoArmazenamentoDelete(DeleteView):
     model = Endereco_Armazenamento
     template_name = "cadastro/form-delete.html"
     success_url = reverse_lazy('index')
-
-class EnderecoArmazenamentoCategoriaDelete(DeleteView):
-    model = Endereco_Armazenamento_Categoria
-    template_name = "cadastro/form-delete.html"
-    success_url = reverse_lazy('index')    
 
 class ItemDescartavelDelete(DeleteView):
     model = Item_Descartavel
