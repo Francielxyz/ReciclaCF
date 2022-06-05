@@ -5,7 +5,7 @@
 {% load crispy_forms_tags %}
 
 {% block titulo %}
-<title>Cadastro</title>
+<title>Deletar</title>
 {% endblock %}
 
 {% block conteudo1 %}
@@ -14,17 +14,23 @@
 {% block conteudo2 %}
 <div id="hero-animated" class="hero-animated">
     <div class="container">
-        <form method="POST">
-            {% csrf_token %}
-
-            {{ form|crispy }}
+        <H5>
+            <p class="lead">
+                Confirme a Exclusão
+            </p>
+        </H5>
+        <hr>
+        <form action="" method="POST">
+            <P>
+                Deseja Excluir o Registro: <strong>{{ object }}</strong>
+            </P>
+            
             <p class="lead" style="text-align: center!important;">
-                <button type="submit" class="btn btn-success"
-                    style="background-color: #05c46b; border-color: transparent;">
-                    Salvar
+                <button type="submit" class="btn btn-danger">
+                    Excluír
                 </button>
                 <a href="{% url 'listar-estado' %}" class="btn btn-info">Voltar</a>
-            </p>
+            </p> 
         </form>
     </div>
 </div>

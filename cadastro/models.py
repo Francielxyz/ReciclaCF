@@ -34,7 +34,7 @@ class Categoria(models.Model):
     status = models.CharField(max_length=1, default="A")
 
     def __str__(self):
-        return "Categoria - {}".format(self.nome)
+        return "{}".format(self.nome)
 
 class Endereco_Armazenamento(models.Model):
     cep = models.IntegerField(verbose_name="CEP")
@@ -50,7 +50,7 @@ class Endereco_Armazenamento(models.Model):
     categoria = models.ManyToManyField(Categoria)
 
     def __str__(self):
-        return "Rua: {}, {} - {}".format(self.rua, self.cidade.nome, self.cidade.estado.uf)
+        return "{} Nº {} {} - {}".format(self.rua, self.numero , self.cidade.nome, self.cidade.estado.uf)
 
 class Item_Descartavel(models.Model):
     nome = models.CharField(max_length=100, verbose_name="Item")

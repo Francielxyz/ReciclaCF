@@ -3,6 +3,7 @@ from .views import EstadoCreate, CidadeCreate, PerfilCreate, CategoriaCreate, En
 from .views import EstadoUpdate, CidadeUpdate, PerfilUpdate, CategoriaUpdate, EnderecoArmazenamentoUpdate, ItemDescartavelUpdate
 from .views import EstadoDelete, CidadeDelete, PerfilDelete, CategoriaDelete, EnderecoArmazenamentoDelete, ItemDescartavelDelete
 from .views import EstadoList
+from .views import Index
 
 urlpatterns = [
     path('cadastro/estado/', EstadoCreate.as_view(), name='cadastrar-estado'),
@@ -27,5 +28,7 @@ urlpatterns = [
     path('excluir/item-descartavel/<int:pk>/', ItemDescartavelDelete.as_view(), name='excluir-item-descartavel'),
 
     path('listar/estados/', EstadoList.as_view(), name='listar-estado'),
+
+    path('sobre/', Index.as_view(), name='sobre'),
 ]
 

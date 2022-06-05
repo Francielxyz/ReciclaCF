@@ -1,13 +1,8 @@
-from dataclasses import field
-from re import template
-from statistics import mode
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import Estado, Cidade, Perfil, Categoria, Endereco_Armazenamento, Item_Descartavel
+from django.views.generic import TemplateView
 from django.urls import reverse_lazy
-#Impedir que usuários não autenticados acessem uma determinada página
-from django.contrib.auth.mixins import LoginRequiredMixin
-#Controle de acesso dos login de adm e cliente
 
 ############# Create #############
 class EstadoCreate(CreateView):
@@ -86,7 +81,7 @@ class ItemDescartavelUpdate(UpdateView):
 ############# Delete #############
 class EstadoDelete(DeleteView):
     model = Estado
-    template_name = "cadastro/form-delete.html"
+    template_name = "cadastro/excluir/form-delete.html"
     success_url = reverse_lazy("listar-estado")
 
 class CidadeDelete(DeleteView):
@@ -119,3 +114,7 @@ class ItemDescartavelDelete(DeleteView):
 class EstadoList(ListView):
     model = Estado
     template_name = "cadastro/listas/estados.html"
+
+############# Sobre #############
+class Index(TemplateView):
+    template_name = 'sobre/sobre.html'

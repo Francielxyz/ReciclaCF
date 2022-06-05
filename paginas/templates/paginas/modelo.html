@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -7,13 +9,16 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+  {% block titulo %}
   <title>Recicla CF</title>
+  {% endblock %}
+
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{% static 'img/favicon.png' %}" rel="icon">
-  <link href="{% static 'img/apple-touch-icon.png' %}" rel="icon">
+  <!-- <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="icon"> -->
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +35,7 @@
   <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
   <!-- Variables CSS Files. Uncomment your preferred color scheme -->
-  <link href="{% static 'css/variables.css' %}" rel="stylesheet">
+  <link href="{% static 'css/variables-green.css' %}" rel="stylesheet">
   <!-- <link href="assets/css/variables-blue.css" rel="stylesheet"> -->
   <!-- <link href="assets/css/variables-green.css" rel="stylesheet"> -->
   <!-- <link href="assets/css/variables-orange.css" rel="stylesheet"> -->
@@ -49,62 +54,70 @@
   <header id="header" class="header fixed-top" data-scrollto-offset="0">
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+      <a href="{% url 'inicio' %}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
         <h1>Reclica CF<span>.</span></h1>
       </a>
 
       <!-- ======= Navbar ======= -->
       <nav id="navbar" class="navbar">
         <ul>
-          <li class="dropdown"><a href="#"><span>Cadastro</span> <i
-                class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <li class="dropdown"><a href="#"><span>Cadastros</span>
+              <i class="bi bi-chevron-down dropdown-indicator"></i>
+            </a>
             <ul>
-              <li><a href="#">Cidade</a></li>
-              <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i
-                    class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li> -->
-              <li><a href="#">Item</a></li>
-              <li><a href="#">Endereço</a></li>
+              <li><a href="{% url 'listar-estado' %}">Estado</a></li>
+              <li><a href="#">Item Descartavel</a></li>
+              <li><a href="#">Endereço de Armazenamento</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="index.html#services">Serviços</a></li>
-          <li><a class="nav-link scrollto" href="index.html#about">Sobre</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'sobre' %}">Sobre</a></li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle d-none"></i>
       </nav>
       <!-- .navbar -->
 
-      <a class="btn-getstarted scrollto" href="index.html#about">Comece</a>
+      <div style="padding-right: 22px">
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li class="dropdown"><a href="#"><span>Perfil</span>
+                <i class="bi bi-chevron-down dropdown-indicator"></i>
+              </a>
+              <ul>
+                <li><a href="#">Editar</a></li>
+                <li><a href="#">Sair</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
     </div>
   </header>
   <!-- End Header -->
-
+  {% block conteudo1 %}
   <section id="hero-animated" class="hero-animated d-flex align-items-center">
+
     <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative"
       data-aos="zoom-out">
-      <img src="{% static 'img/hero-carousel/hero-carousel-2.svg' %}" class="img-fluid animated">
+
+      <img src="{% static 'img/hero-carousel/hero-carousel-3.svg' %}" class="img-fluid animated">
       <h2>Bem vindo ao <span>Reclica CF</span></h2>
-      <p>Realizar o cadastro de itens a serem descartados.</p>
-      <div class="d-flex">
+      <p>A reciclagem é um importante processo para a diminuição do lixo e da extração de recursos, porém não é a única
+        medida responsável por uma sociedade sustentável.</p>
+      <!-- <div class="d-flex">
         <a href="#about" class="btn-get-started scrollto">Comece</a>
-      </div>
+      </div> -->
+
     </div>
+
   </section>
+  {% endblock %}
 
   <main id="main">
 
     <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients">
+      {% block conteudo2 %}
       <div class="container" data-aos="zoom-out">
-
         <div class="clients-slider swiper">
           <div class="swiper-wrapper align-items-center">
             <div class="swiper-slide"><img src="{% static 'img/clients/client-1.png' %}" class="img-fluid" alt=""></div>
@@ -114,11 +127,11 @@
             <div class="swiper-slide"><img src="{% static 'img/clients/client-5.png' %}" class="img-fluid" alt=""></div>
             <div class="swiper-slide"><img src="{% static 'img/clients/client-6.png' %}" class="img-fluid" alt=""></div>
             <div class="swiper-slide"><img src="{% static 'img/clients/client-7.png' %}" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="{% static 'img/clients/client-8.png' %}" class="img-fluid" alt=""></div>            
+            <div class="swiper-slide"><img src="{% static 'img/clients/client-8.png' %}" class="img-fluid" alt=""></div>
           </div>
         </div>
-
       </div>
+      {% endblock %}
     </section>
   </main><!-- End #main -->
 
@@ -135,11 +148,12 @@
         </div>
 
         <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
-          <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          <!-- <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a> -->
+          <a href="https://www.linkedin.com/in/franciel-ruam-995644174/" class="linkedin"><i
+              class="bi bi-linkedin"></i></a>
+          <!-- <a href="ruanvha15@gmail.com" class="email"><i class="bi bi-envelope"></i></a> -->
+          <a href="https://github.com/Francielxyz" class="github"><i class="bi bi-github"></i></a>
         </div>
 
       </div>
@@ -150,8 +164,6 @@
       class="bi bi-arrow-up-short"></i></a>
 
   <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
 
   <!-- Vendor JS Files -->
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
