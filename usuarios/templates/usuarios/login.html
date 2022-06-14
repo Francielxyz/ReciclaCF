@@ -1,0 +1,66 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+<title>Login</title>
+{% endblock %}
+
+{% block header %}
+<header id="header" class="header fixed-top" data-scrollto-offset="0">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+        <a href="{% url 'inicio' %}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+            <h1>Reclica CF<span>.</span></h1>
+        </a>
+
+    </div>
+</header>
+{% endblock %}
+
+{% block conteudo1 %}
+{% endblock %}
+
+{% block conteudo2 %}
+<div id="hero-animated" class="hero-animated">
+    <div class="container col-lg-4">
+        {% if not request.user.is_authenticated %}
+        <h3>Autenticação</h3>
+
+        <!-- {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            <strong>
+                Atenção
+            </strong>
+            Usuário não existe ou a senha não confere
+        </div>
+        {% endif %} -->
+        <hr>
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {{ form|crispy }}
+
+            <p class="lead" style="text-align: center!important;">
+                <a href="#" class="btn btn-info">Cadastrar</a>
+                <button type="submit" class="btn btn-success"
+                    style="background-color: #05c46b; border-color: transparent;">Entrar</button>
+            </p>
+        </form>
+
+        {% else %}
+        <h5>Você não pode ver essa página!</h5>
+        <hr>
+        <div class="col">
+            <p class="lead">Redirecionando você para o inicio</p>
+            <div class="spinner-border text-success" role="status">
+                <span class="sr-only"></span>
+            </div>
+        </div>
+        <meta http-equiv="refresh" content="2; URL='{% url 'inicio' %}'" />
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'paginas.apps.PaginasConfig',
     'cadastro.apps.CadastroConfig',
+    'usuarios.apps.UsuariosConfig',
 
     'crispy_forms',
     'crispy_bootstrap5',
@@ -134,3 +135,12 @@ STATICFILES_DIRS = [ BASE_DIR / 'static' ]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Configuração de Autenticação (constantes)
+#redirecionar para a tela de inicio após login
+LOGIN_REDIRECT_URL = 'inicio'
+#redirecionar para a tela de login após tenta acessar página sem logar
+LOGIN_URL = 'login'
+#redirecionar para a tela de login após sair
+LOGOUT_REDIRECT_URL = 'login'
+

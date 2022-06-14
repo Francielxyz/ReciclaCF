@@ -34,6 +34,8 @@
   <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
   <!-- Variables CSS Files. Uncomment your preferred color scheme -->
   <link href="{% static 'css/variables-green.css' %}" rel="stylesheet">
   <!-- <link href="assets/css/variables-blue.css" rel="stylesheet"> -->
@@ -50,6 +52,7 @@
 
 <body>
 
+  {% block header %}
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top" data-scrollto-offset="0">
     <div class="container-fluid d-flex align-items-center justify-content-between">
@@ -66,8 +69,10 @@
             </a>
             <ul>
               <li><a href="{% url 'listar-estado' %}">Estado</a></li>
-              <li><a href="#">Item Descartavel</a></li>
-              <li><a href="#">Endereço de Armazenamento</a></li>
+              <li><a href="{% url 'listar-cidade' %}">Cidade</a></li>
+              <li><a href="{% url 'listar-categoria' %}">Categoria</a></li>
+              <li><a href="{% url 'listar-item-descartavel' %}">Item Descartavel</a></li>
+              <li><a href="{% url 'listar-endereco' %}">Endereço de Armazenamento</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="{% url 'sobre' %}">Sobre</a></li>
@@ -78,20 +83,36 @@
       <div style="padding-right: 22px">
         <nav id="navbar" class="navbar">
           <ul>
-            <li class="dropdown"><a href="#"><span>Perfil</span>
+
+            {% if request.user.is_authenticated %}
+
+            <li class="dropdown"><a href="#"><span>{{ request.user }}</span>
                 <i class="bi bi-chevron-down dropdown-indicator"></i>
               </a>
               <ul>
-                <li><a href="#">Editar</a></li>
-                <li><a href="#">Sair</a></li>
+                <li><a href="#">Meus dados</a></li>
+                <li><a href="#">Alterar senha</a></li>
+                <li><a href="{% url 'logout' %}">Sair</a></li>
               </ul>
             </li>
+
+            {% else %}
+            <li class="dropdown">
+              <a href{} <span>
+                Entrar
+                </span>
+              </a>
+              <ul>
+            </li>
+            {% endif %}
+
           </ul>
         </nav>
       </div>
 
     </div>
   </header>
+  {% endblock %}
   <!-- End Header -->
   {% block conteudo1 %}
   <section id="hero-animated" class="hero-animated d-flex align-items-center">
@@ -112,7 +133,8 @@
   </section>
   {% endblock %}
 
-  <main id="main">
+  <main id="main" style="min-height:100%;
+   position:relative;">
 
     <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients">
@@ -133,6 +155,9 @@
       </div>
       {% endblock %}
     </section>
+
+    {% block section %}
+    {% endblock %}
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

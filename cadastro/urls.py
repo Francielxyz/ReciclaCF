@@ -2,7 +2,7 @@ from django.urls import path
 from .views import EstadoCreate, CidadeCreate, PerfilCreate, CategoriaCreate, EnderecoArmazenamentoCreate, ItemDescartavelCreate
 from .views import EstadoUpdate, CidadeUpdate, PerfilUpdate, CategoriaUpdate, EnderecoArmazenamentoUpdate, ItemDescartavelUpdate
 from .views import EstadoDelete, CidadeDelete, PerfilDelete, CategoriaDelete, EnderecoArmazenamentoDelete, ItemDescartavelDelete
-from .views import EstadoList
+from .views import EstadoList, CidadeList, ItemDescartavelList, CategoriaList, EnderecoArmazenamentoList
 from .views import Index
 
 urlpatterns = [
@@ -28,6 +28,10 @@ urlpatterns = [
     path('excluir/item-descartavel/<int:pk>/', ItemDescartavelDelete.as_view(), name='excluir-item-descartavel'),
 
     path('listar/estados/', EstadoList.as_view(), name='listar-estado'),
+    path('listar/cidades/', CidadeList.as_view(), name='listar-cidade'),
+    path('listar/categorias/', CategoriaList.as_view(), name='listar-categoria'),
+    path('listar/item/', ItemDescartavelList.as_view(), name='listar-item-descartavel'),
+    path('listar/enderecos/', EnderecoArmazenamentoList.as_view(), name='listar-endereco'),
 
     path('sobre/', Index.as_view(), name='sobre'),
 ]

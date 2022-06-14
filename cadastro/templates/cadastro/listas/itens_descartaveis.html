@@ -1,0 +1,69 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block titulo %}
+<title>Lista</title>
+{% endblock %}
+
+{% block conteudo1 %}
+{% endblock %}
+
+{% block conteudo2 %}
+<div id="hero-animated" class="hero-animated">
+
+    <div class="container">
+        <a href="{% url 'cadastrar-item-descartavel' %}" class="btn btn-success float-left"
+            style="margin-bottom: 20px; background-color: #05c46b; border-color: transparent;">
+            Novo item
+        </a>
+<!-- 
+            nome = models.CharField(max_length=100, verbose_name="Item")
+            quantidade = models.IntegerField(verbose_name="Quantidade")
+            observacao = models.CharField(max_length=255, blank=True, null=True, verbose_name="Observação")
+            data_cadastro = models.DateTimeField(verbose_name="Data Cadastro", auto_now_add=True)
+            
+            perfil = models.ForeignKey(Perfil, on_delete=models.PROTECT)
+            categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
+            endereco_armazenamento = models.ForeignKey(Endereco_Armazenamento, on_delete=models.PROTECT) -->
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Quantidade</th>
+                        <th>Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in object_list %}
+                    <tr>
+                        <td>{{ obj.pk }}</td>
+                        <td>{{ obj.nome }}</td>
+                        <td>{{ obj.categoria.nome }}</td>
+                        <td>{{ obj.quantidade }}</td>
+                        <td>
+                            <a href="{% url 'editar-item-descartavel' obj.pk %}" class="btn btn-success btn-sm" title="Editar"
+                                style="background-color: #05c46b; border-color: transparent;">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <a href="{% url 'excluir-item-descartavel' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="100%">Nenhum registro encontrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

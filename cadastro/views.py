@@ -3,19 +3,23 @@ from django.views.generic.list import ListView
 from .models import Estado, Cidade, Perfil, Categoria, Endereco_Armazenamento, Item_Descartavel
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin #Impedir que usuários não autenticados acessem uma determinada página
+from braces.views import GroupRequiredMixin #Controle de acesso dos login de adm e cliente
 
 ############# Create #############
-class EstadoCreate(CreateView):
+class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Estado
+    group_required = u"Administrador"
     fields = ['nome', 'uf']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-estado')
 
-class CidadeCreate(CreateView):
+class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin,CreateView):
     model = Cidade
+    group_required = u"Administrador"
     fields = ['nome', 'estado']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-cidade')
 
 class PerfilCreate(CreateView):
     model = Perfil
@@ -23,98 +27,126 @@ class PerfilCreate(CreateView):
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('index')
 
-class CategoriaCreate(CreateView):
+class CategoriaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Categoria
+    group_required = u"Administrador"
     fields = ['nome', 'observacao']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-categoria')
 
-class EnderecoArmazenamentoCreate(CreateView):
+class EnderecoArmazenamentoCreate(LoginRequiredMixin, CreateView):
     model = Endereco_Armazenamento
     fields = ['cep', 'bairro', 'rua', 'numero', 'endereco_compartilhado', 'observacao', 'cidade']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-endereco')
 
-class ItemDescartavelCreate(CreateView):
+class ItemDescartavelCreate(LoginRequiredMixin, CreateView):
     model = Item_Descartavel
-    fields = ['nome', 'quantidade', 'observacao', 'data_cadastro', 'perfil', 'categoria', 'endereco_armazenamento']
+    fields = ['nome', 'quantidade', 'observacao', 'categoria', 'endereco_armazenamento', 'perfil']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-item-descartavel')
+
 
 ############# Update #############
-class EstadoUpdate(UpdateView):
+class EstadoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Estado
+    group_required = u"Administrador"
     fields = ["nome", "uf"]
     template_name = "cadastro/form.html"
     success_url = reverse_lazy("listar-estado")
 
-class CidadeUpdate(UpdateView):
+class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Cidade
+    group_required = u"Administrador"
     fields = ['nome', 'estado']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-cidade')
 
-class PerfilUpdate(UpdateView):
+class PerfilUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Perfil
     fields = ['nome', 'data_nascimento', 'telefone1', 'telefone2', 'email', 'observacao']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('index')
 
-class CategoriaUpdate(UpdateView):
+class CategoriaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Categoria
+    group_required = u"Administrador"
     fields = ['nome', 'observacao']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-categoria')
 
-class EnderecoArmazenamentoUpdate(UpdateView):
+class EnderecoArmazenamentoUpdate(LoginRequiredMixin, UpdateView):
     model = Endereco_Armazenamento
     fields = ['cep', 'bairro', 'rua', 'numero', 'endereco_compartilhado', 'observacao', 'cidade']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-endereco')
 
-class ItemDescartavelUpdate(UpdateView):
+class ItemDescartavelUpdate(LoginRequiredMixin, UpdateView):
     model = Item_Descartavel
     fields = ['nome', 'quantidade', 'observacao', 'data_cadastro', 'perfil', 'categoria', 'endereco_armazenamento']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-item-descartavel')
+
 
 ############# Delete #############
-class EstadoDelete(DeleteView):
+class EstadoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Estado
+    group_required = u"Administrador"
     template_name = "cadastro/excluir/form-delete.html"
     success_url = reverse_lazy("listar-estado")
 
-class CidadeDelete(DeleteView):
+class CidadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Cidade
-    template_name = "cadastro/form-delete.html"
+    group_required = u"Administrador"
+    template_name = "cadastro/excluir/form-delete.html"
     success_url = reverse_lazy("index")
 
-class PerfilDelete(DeleteView):
+class PerfilDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Perfil
-    template_name = "cadastro/form-delete.html"
+    template_name = "cadastro/excluir/form-delete.html"
     success_url = reverse_lazy('index')
 
-class CategoriaDelete(DeleteView):
+class CategoriaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Categoria
-    template_name = "cadastro/form-delete.html"
+    group_required = u"Administrador"
+    template_name = "cadastro/excluir/form-delete.html"
     success_url = reverse_lazy('index')
 
-class EnderecoArmazenamentoDelete(DeleteView):
+class EnderecoArmazenamentoDelete(LoginRequiredMixin, DeleteView):
     model = Endereco_Armazenamento
-    template_name = "cadastro/form-delete.html"
+    template_name = "cadastro/excluir/form-delete.html"
     success_url = reverse_lazy('index')
 
-class ItemDescartavelDelete(DeleteView):
+class ItemDescartavelDelete(LoginRequiredMixin, DeleteView):
     model = Item_Descartavel
-    template_name = "cadastro/form-delete.html"
+    template_name = "cadastro/excluir/form-delete.html"
     success_url = reverse_lazy('index')
 
 
 ############# List #############
-class EstadoList(ListView):
+class EstadoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Estado
+    group_required = u"Administrador"
     template_name = "cadastro/listas/estados.html"
 
+class CidadeList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    model = Cidade
+    group_required = u"Administrador"
+    template_name = "cadastro/listas/cidades.html"
+
+class CategoriaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    model = Categoria
+    group_required = u"Administrador"
+    template_name = "cadastro/listas/categorias.html"
+
+class ItemDescartavelList(LoginRequiredMixin, ListView):
+    model = Item_Descartavel
+    template_name = "cadastro/listas/itens_descartaveis.html"
+
+class EnderecoArmazenamentoList(LoginRequiredMixin, ListView):
+    model = Endereco_Armazenamento
+    template_name = "cadastro/listas/enderecos.html"
+
 ############# Sobre #############
-class Index(TemplateView):
+class Index(LoginRequiredMixin, TemplateView):
     template_name = 'sobre/sobre.html'

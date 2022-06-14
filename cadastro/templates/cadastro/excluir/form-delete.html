@@ -26,10 +26,10 @@
             </P>
             
             <p class="lead" style="text-align: center!important;">
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-info">Voltar</a>
                 <button type="submit" class="btn btn-danger">
                     Excluír
                 </button>
-                <a href="{% url 'listar-estado' %}" class="btn btn-info">Voltar</a>
             </p> 
         </form>
     </div>

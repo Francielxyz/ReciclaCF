@@ -13,17 +13,17 @@
 
 {% block conteudo2 %}
 <div id="hero-animated" class="hero-animated">
-    <div class="container">
+    <div class="container col-lg-6" style="padding-top: 35px;">
         <form method="POST">
             {% csrf_token %}
 
             {{ form|crispy }}
             <p class="lead" style="text-align: center!important;">
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-info">Voltar</a>
                 <button type="submit" class="btn btn-success"
                     style="background-color: #05c46b; border-color: transparent;">
                     Salvar
                 </button>
-                <a href="{% url 'listar-estado' %}" class="btn btn-info">Voltar</a>
             </p>
         </form>
     </div>
