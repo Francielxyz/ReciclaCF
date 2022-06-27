@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin #Impedir que usuários não autenticados acessem uma determinada página
 from braces.views import GroupRequiredMixin #Controle de acesso dos login de adm e cliente
+from django.shortcuts import get_object_or_404
 
 ############# Create #############
 class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
@@ -27,6 +28,20 @@ class PerfilCreate(CreateView):
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('index')
 
+    def form_valid(self, form):
+
+        # Ante do super, não existe objeto.
+        # Estamos trabalhando com os dados do formulário
+        form.instance.usuario = self.request.user
+
+        # Valida os dados e da um INSERT no banco
+        url = super().form_valid(form)
+
+        # Neste ponto, exite o objeto que foi criado no banco relacional
+        # self.object.codigo = hash(self.object.pk)
+        # self.object.save()
+        return url
+
 class CategoriaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Categoria
     group_required = u"Administrador"
@@ -40,12 +55,21 @@ class EnderecoArmazenamentoCreate(LoginRequiredMixin, CreateView):
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-endereco')
 
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        url = super().form_valid(form)
+        return url
+
 class ItemDescartavelCreate(LoginRequiredMixin, CreateView):
     model = Item_Descartavel
-    fields = ['nome', 'quantidade', 'observacao', 'categoria', 'endereco_armazenamento', 'perfil']
+    fields = ['nome', 'quantidade', 'observacao', 'categoria', 'endereco_armazenamento']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-item-descartavel')
 
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        url = super().form_valid(form)
+        return url
 
 ############# Update #############
 class EstadoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
@@ -81,11 +105,29 @@ class EnderecoArmazenamentoUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-endereco')
 
+    def get_object(self):
+        self.object = get_object_or_404(
+            Endereco_Armazenamento, 
+            usuario=self.request.user, 
+            pk=self.kwargs['pk']
+        )
+
+        return self.object 
+
 class ItemDescartavelUpdate(LoginRequiredMixin, UpdateView):
     model = Item_Descartavel
-    fields = ['nome', 'quantidade', 'observacao', 'categoria', 'endereco_armazenamento', 'perfil']
+    fields = ['nome', 'quantidade', 'observacao', 'categoria', 'endereco_armazenamento']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-item-descartavel')
+
+    def get_object(self):
+        self.object = get_object_or_404(
+            Item_Descartavel, 
+            usuario=self.request.user, 
+            pk=self.kwargs['pk']
+        )
+
+        return self.object 
 
 
 ############# Delete #############
@@ -143,9 +185,21 @@ class ItemDescartavelList(LoginRequiredMixin, ListView):
     model = Item_Descartavel
     template_name = "cadastro/listas/itens_descartaveis.html"
 
+    def get_queryset(self):
+        self.object_list = Item_Descartavel.objects.filter(usuario = self.request.user)
+        return self.object_list
+
 class EnderecoArmazenamentoList(LoginRequiredMixin, ListView):
     model = Endereco_Armazenamento
     template_name = "cadastro/listas/enderecos.html"
+
+    # Modifica a query padrão de select que vai no banco
+    def get_queryset(self):
+
+        # Faz com que apenas os dados pertencentas aquele usuário seja mostrado
+        self.object_list = Endereco_Armazenamento.objects.filter(usuario=self.request.user)
+
+        return self.object_list
 
 ############# Sobre #############
 class Index(LoginRequiredMixin, TemplateView):

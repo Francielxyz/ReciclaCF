@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Estado(models.Model):
     nome = models.CharField(max_length=100, unique=True, verbose_name="Estado")
@@ -23,6 +24,8 @@ class Perfil(models.Model):
     observacao = models.CharField(max_length=255, blank=True, null=True, verbose_name="Observação")
     data_cadastro = models.DateTimeField(verbose_name="Data Cadastro", auto_now_add=True)
     status = models.CharField(max_length=1, default="A")
+
+    usuario = models.OneToOneField(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return "{}".format(self.nome)
@@ -49,6 +52,8 @@ class Endereco_Armazenamento(models.Model):
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
     categoria = models.ManyToManyField(Categoria)
 
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
+
     def __str__(self):
         return "{} Nº {} {} - {}".format(self.rua, self.numero , self.cidade.nome, self.cidade.estado.uf)
 
@@ -57,10 +62,10 @@ class Item_Descartavel(models.Model):
     quantidade = models.IntegerField(verbose_name="Quantidade")
     observacao = models.CharField(max_length=255, blank=True, null=True, verbose_name="Observação")
     data_cadastro = models.DateTimeField(verbose_name="Data Cadastro", auto_now_add=True)
-
-    perfil = models.ForeignKey(Perfil, on_delete=models.PROTECT)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     endereco_armazenamento = models.ForeignKey(Endereco_Armazenamento, on_delete=models.PROTECT)
+
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return "{}".format(self.nome)
