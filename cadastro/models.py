@@ -63,5 +63,4 @@ class Item_Descartavel(models.Model):
     endereco_armazenamento = models.ForeignKey(Endereco_Armazenamento, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{} com {} unidades na categoria {} e o responsavel é {}".format(
-            self.nome, self.quantidade, self.categoria.nome, self.perfil.nome)
+        return "{}".format(self.nome)

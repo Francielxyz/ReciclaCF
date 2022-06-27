@@ -83,7 +83,7 @@ class EnderecoArmazenamentoUpdate(LoginRequiredMixin, UpdateView):
 
 class ItemDescartavelUpdate(LoginRequiredMixin, UpdateView):
     model = Item_Descartavel
-    fields = ['nome', 'quantidade', 'observacao', 'data_cadastro', 'perfil', 'categoria', 'endereco_armazenamento']
+    fields = ['nome', 'quantidade', 'observacao', 'categoria', 'endereco_armazenamento', 'perfil']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-item-descartavel')
 

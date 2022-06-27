@@ -23,7 +23,10 @@
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Nome</th>
+                        <th>Rua</th>
+                        <th>Número</th>
+                        <th>Bairro</th>
+                        <th>Compartilhado</th>
                         <th>Opções</th>
                     </tr>
                 </thead>
@@ -32,6 +35,13 @@
                     <tr>
                         <td>{{ obj.pk }}</td>
                         <td>{{ obj.rua }}</td>
+                        <td>{{ obj.numero }}</td>
+                        <td>{{ obj.bairro }}</td>
+                        {% if obj.endereco_compartilhado %}
+                        <td>Sim</td>
+                        {% else %}
+                        <td>Não</td>
+                        {% endif %}
                         <td>
                             <a href="{% url 'editar-endereco' obj.pk %}" class="btn btn-success btn-sm" title="Editar"
                                 style="background-color: #05c46b; border-color: transparent;">
