@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin #Impedir que usuários não autenticados acessem uma determinada página
 from braces.views import GroupRequiredMixin #Controle de acesso dos login de adm e cliente
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 ############# Create #############
 class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
@@ -70,6 +71,15 @@ class ItemDescartavelCreate(LoginRequiredMixin, CreateView):
         form.instance.usuario = self.request.user
         url = super().form_valid(form)
         return url
+
+    def get_context_data(self, *args, **kwargs):
+        dados = super().get_context_data(*args, **kwargs)
+        
+        dados['form'].fields['endereco_armazenamento'].queryset = Endereco_Armazenamento.objects.filter(
+            Q(usuario=self.request.user) | Q(endereco_compartilhado = True) #Condição OU
+        )
+
+        return dados
 
 ############# Update #############
 class EstadoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):

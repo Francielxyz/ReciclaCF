@@ -68,9 +68,11 @@
               <i class="bi bi-chevron-down dropdown-indicator"></i>
             </a>
             <ul>
+              {% if request.user.groups.all.0.name == "Administrador" %}
               <li><a href="{% url 'listar-estado' %}">Estado</a></li>
               <li><a href="{% url 'listar-cidade' %}">Cidade</a></li>
               <li><a href="{% url 'listar-categoria' %}">Categoria</a></li>
+              {% endif %}
               <li><a href="{% url 'listar-item-descartavel' %}">Item Descartavel</a></li>
               <li><a href="{% url 'listar-endereco' %}">Endereço de Armazenamento</a></li>
             </ul>
