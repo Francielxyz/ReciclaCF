@@ -23,7 +23,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Código</th>
+                        <th>Nº</th>
                         <th>Nome</th>
                         <th>Opções</th>
                     </tr>
@@ -31,7 +31,7 @@
                 <tbody>
                     {% for obj in object_list %}
                     <tr>
-                        <td>{{ obj.pk }}</td>
+                        <td>{{ forloop.counter }}</td>
                         <td>{{ obj.nome }}</td>
                         <td>
                             <a href="{% url 'editar-categoria' obj.pk %}" class="btn btn-success btn-sm" title="Editar"

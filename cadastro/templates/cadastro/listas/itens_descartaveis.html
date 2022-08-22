@@ -21,7 +21,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Código</th>
+                        <th>Nº</th>
                         <th>Nome</th>
                         <th>Categoria</th>
                         <th>Quantidade</th>
@@ -31,7 +31,7 @@
                 <tbody>
                     {% for obj in object_list %}
                     <tr>
-                        <td>{{ obj.pk }}</td>
+                        <td>{{ forloop.counter }}</td>
                         <td>{{ obj.nome }}</td>
                         <td>{{ obj.categoria.nome }}</td>
                         <td>{{ obj.quantidade }}</td>

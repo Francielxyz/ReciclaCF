@@ -22,7 +22,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Código</th>
+                        <th>Nº</th>
                         <th>Rua</th>
                         <th>Número</th>
                         <th>Bairro</th>
@@ -33,7 +33,7 @@
                 <tbody>
                     {% for obj in object_list %}
                     <tr>
-                        <td>{{ obj.pk }}</td>
+                        <td>{{ forloop.counter }}</td>
                         <td>{{ obj.rua }}</td>
                         <td>{{ obj.numero }}</td>
                         <td>{{ obj.bairro }}</td>

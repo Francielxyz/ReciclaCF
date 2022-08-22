@@ -55,7 +55,7 @@ class Endereco_Armazenamento(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{} Nº {} {} - {}".format(self.rua, self.numero , self.cidade.nome, self.cidade.estado.uf)
+        return "{} - {} Nº {} {} - {}".format(self.pk, self.rua, self.numero , self.cidade.nome, self.cidade.estado.uf)
 
 class Item_Descartavel(models.Model):
     nome = models.CharField(max_length=100, verbose_name="Item")

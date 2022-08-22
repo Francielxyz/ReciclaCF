@@ -78,7 +78,6 @@ class ItemDescartavelCreate(LoginRequiredMixin, CreateView):
         dados['form'].fields['endereco_armazenamento'].queryset = Endereco_Armazenamento.objects.filter(
             Q(usuario=self.request.user) | Q(endereco_compartilhado = True) #Condição OU
         )
-
         return dados
 
 ############# Update #############
