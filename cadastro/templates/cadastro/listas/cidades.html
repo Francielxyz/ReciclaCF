@@ -13,9 +13,9 @@
 <div id="hero-animated" class="hero-animated">
 
     <div class="container col-lg-8"">
-        <a href="{% url 'cadastrar-cidade' %}" class="btn btn-success float-left"
-            style="margin-bottom: 20px; background-color: #05c46b; border-color: transparent;">
-            Nova cidade
+        <a href=" {% url 'cadastrar-cidade' %}" class="btn btn-success float-left"
+        style="margin-bottom: 20px; background-color: #05c46b; border-color: transparent;">
+        Nova cidade
         </a>
 
 
@@ -50,6 +50,37 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">Primeira</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                            Anterior
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                        </a>
+                    </li>
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                            Próximo
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                            Última
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
         </div>
 
     </div>

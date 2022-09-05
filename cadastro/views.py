@@ -179,20 +179,24 @@ class EstadoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Estado
     group_required = u"Administrador"
     template_name = "cadastro/listas/estados.html"
+    paginate_by = 5
 
 class CidadeList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Cidade
     group_required = u"Administrador"
     template_name = "cadastro/listas/cidades.html"
+    paginate_by = 5
 
 class CategoriaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Categoria
     group_required = u"Administrador"
     template_name = "cadastro/listas/categorias.html"
+    paginate_by = 5
 
 class ItemDescartavelList(LoginRequiredMixin, ListView):
     model = Item_Descartavel
     template_name = "cadastro/listas/itens_descartaveis.html"
+    paginate_by = 5
 
     def get_queryset(self):
         self.object_list = Item_Descartavel.objects.filter(usuario = self.request.user)
@@ -201,6 +205,7 @@ class ItemDescartavelList(LoginRequiredMixin, ListView):
 class EnderecoArmazenamentoList(LoginRequiredMixin, ListView):
     model = Endereco_Armazenamento
     template_name = "cadastro/listas/enderecos.html"
+    paginate_by = 5
 
     # Modifica a query padrão de select que vai no banco
     def get_queryset(self):
