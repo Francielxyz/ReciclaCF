@@ -48,6 +48,16 @@
   <!-- Template Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
+  <style>
+    .select2-container .select2-selection--single {
+      height: calc(1.5em + .75rem + 2px) !important;
+      border: 1px solid #ced4da !important;
+    }
+  
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+      height: calc(1.5em + .75rem + 2px) !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -193,12 +203,15 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'vendor/aos/aos.js' %}"></script>
   <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
   <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
   <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
   <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  {{ form.media }}
 
   <!-- Template Main JS File -->
   <script src="{% static 'js/main.js' %}"></script>

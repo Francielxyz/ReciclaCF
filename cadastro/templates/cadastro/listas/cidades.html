@@ -25,6 +25,7 @@
                     <tr>
                         <th>Nº</th>
                         <th>Nome</th>
+                        <th>Estado</th>
                         <th>Opções</th>
                     </tr>
                 </thead>
@@ -33,6 +34,7 @@
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ obj.nome }}</td>
+                        <td>{{ obj.estado.nome }}</td>
                         <td>
                             <a href="{% url 'editar-cidade' obj.pk %}" class="btn btn-success btn-sm" title="Editar"
                                 style="background-color: #05c46b; border-color: transparent;">

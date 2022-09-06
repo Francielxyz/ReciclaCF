@@ -4,6 +4,7 @@ from .views import EstadoUpdate, CidadeUpdate, PerfilUpdate, CategoriaUpdate, En
 from .views import EstadoDelete, CidadeDelete, PerfilDelete, CategoriaDelete, EnderecoArmazenamentoDelete, ItemDescartavelDelete
 from .views import EstadoList, CidadeList, ItemDescartavelList, CategoriaList, EnderecoArmazenamentoList
 from .views import Index
+from .views import CidadeAutocomplete
 
 urlpatterns = [
     path('cadastro/estado/', EstadoCreate.as_view(), name='cadastrar-estado'),
@@ -34,5 +35,7 @@ urlpatterns = [
     path('listar/enderecos/', EnderecoArmazenamentoList.as_view(), name='listar-endereco'),
 
     path('sobre/', Index.as_view(), name='sobre'),
+
+    path('buscar/cidade/', CidadeAutocomplete.as_view(), name='buscar-cidade'),
 ]
 
