@@ -17,15 +17,10 @@ class Cidade(models.Model):
 
 class Perfil(models.Model):
     nome = models.CharField(max_length=150, verbose_name="Nome Completo")
-    data_nascimento = models.DateField(verbose_name="Data Nascimento")
-    telefone1 = models.CharField(max_length=15, verbose_name="Telefone 1")
-    telefone2 = models.CharField(max_length=15, blank=True, null=True, verbose_name="Telefone 2")
     email = models.EmailField(max_length=80, verbose_name="Email")
-    observacao = models.CharField(max_length=255, blank=True, null=True, verbose_name="Observação")
-    data_cadastro = models.DateTimeField(verbose_name="Data Cadastro", auto_now_add=True)
-    status = models.CharField(max_length=1, default="A")
+    telefone = models.CharField(max_length=15, verbose_name="Telefone Celular")
 
-    usuario = models.OneToOneField(User, on_delete=models.PROTECT)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return "{}".format(self.nome)

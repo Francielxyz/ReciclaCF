@@ -9,7 +9,8 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from dal import autocomplete
 from .models import Cidade
-from .forms import EnderecoArmazenamentoForm
+from .forms import EnderecoArmazenamentoForm, PerfilCreateForm
+from django.contrib.auth.models import Group
 
 ############# Create #############
 class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
@@ -26,25 +27,43 @@ class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin,CreateView):
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-cidade')
 
-class PerfilCreate(CreateView):
-    model = Perfil
-    fields = ['nome', 'data_nascimento', 'telefone1', 'telefone2', 'email', 'observacao']
-    template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+class RegistrarPerfil(CreateView):
+    template_name = '../../usuarios/templates/usuarios/registrar.html'
+    form_class = PerfilCreateForm
+    success_url = reverse_lazy("login")
 
     def form_valid(self, form):
+        try:
 
-        # Ante do super, não existe objeto.
-        # Estamos trabalhando com os dados do formulário
-        form.instance.usuario = self.request.user
+            # Valida os dados e da um INSERT no banco
+            url = super().form_valid(form)
 
-        # Valida os dados e da um INSERT no banco
-        url = super().form_valid(form)
+            grupo = get_object_or_404(Group, name="Cliente")
+            self.object.groups.add(grupo)
+            self.object.save()
 
+            # Salvan
+            perfil = Perfil.objects.create(
+                usuario = self.object, 
+                nome = form.cleaned_data['nome'] ,
+                email = self.object.email,
+                telefone = form.cleaned_data['telefone'] ,
+            )
+        
+        except:
+            self.object.delete()
+            form.add_error(None, "Erro ao criar usuário. Tente novamente")
+            return self.form_invalid(form)
+            
         # Neste ponto, exite o objeto que foi criado no banco relacional
         # self.object.codigo = hash(self.object.pk)
         # self.object.save()
         return url
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["botao"] = "Cadastrar"
+        return context
 
 class CategoriaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Categoria
@@ -100,7 +119,7 @@ class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
 
 class PerfilUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Perfil
-    fields = ['nome', 'data_nascimento', 'telefone1', 'telefone2', 'email', 'observacao']
+    fields = ['nome', 'telefone', 'email']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('index')
 

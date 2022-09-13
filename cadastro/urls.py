@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import EstadoCreate, CidadeCreate, PerfilCreate, CategoriaCreate, EnderecoArmazenamentoCreate, ItemDescartavelCreate
+from .views import EstadoCreate, CidadeCreate, CategoriaCreate, EnderecoArmazenamentoCreate, ItemDescartavelCreate
 from .views import EstadoUpdate, CidadeUpdate, PerfilUpdate, CategoriaUpdate, EnderecoArmazenamentoUpdate, ItemDescartavelUpdate
 from .views import EstadoDelete, CidadeDelete, PerfilDelete, CategoriaDelete, EnderecoArmazenamentoDelete, ItemDescartavelDelete
 from .views import EstadoList, CidadeList, ItemDescartavelList, CategoriaList, EnderecoArmazenamentoList
@@ -9,7 +9,6 @@ from .views import CidadeAutocomplete
 urlpatterns = [
     path('cadastro/estado/', EstadoCreate.as_view(), name='cadastrar-estado'),
     path('cadastro/cidade/', CidadeCreate.as_view(), name='cadastrar-cidade'),
-    path('cadastro/perfil/', PerfilCreate.as_view(), name='cadastrar-perfil'),
     path('cadastro/categoria/', CategoriaCreate.as_view(), name='cadastrar-categoria'),
     path('cadastro/endereco/', EnderecoArmazenamentoCreate.as_view(), name='cadastrar-endereco'),
     path('cadastro/item-descartavel/', ItemDescartavelCreate.as_view(), name='cadastrar-item-descartavel'),
@@ -37,5 +36,6 @@ urlpatterns = [
     path('sobre/', Index.as_view(), name='sobre'),
 
     path('buscar/cidade/', CidadeAutocomplete.as_view(), name='buscar-cidade'),
+
 ]
 
