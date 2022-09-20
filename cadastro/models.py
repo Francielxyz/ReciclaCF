@@ -35,7 +35,7 @@ class Categoria(models.Model):
         return "{}".format(self.nome)
 
 class Endereco_Armazenamento(models.Model):
-    cep = models.IntegerField(verbose_name="CEP")
+    cep = models.CharField(max_length=9, verbose_name="CEP")
     bairro = models.CharField(max_length=150, verbose_name="Bairro")
     rua = models.CharField(max_length=50, verbose_name="Rua")
     numero = models.IntegerField(verbose_name="Nº")
@@ -50,7 +50,7 @@ class Endereco_Armazenamento(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{} - {} Nº {} {} - {}".format(self.pk, self.rua, self.numero , self.cidade.nome, self.cidade.estado.uf)
+        return "{} Nº {} {} - {}".format(self.rua, self.numero , self.cidade.nome, self.cidade.estado.uf)
 
 class Item_Descartavel(models.Model):
     nome = models.CharField(max_length=100, verbose_name="Item")

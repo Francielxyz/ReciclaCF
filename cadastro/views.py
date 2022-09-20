@@ -13,20 +13,6 @@ from .forms import EnderecoArmazenamentoForm, PerfilCreateForm
 from django.contrib.auth.models import Group
 
 ############# Create #############
-class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
-    model = Estado
-    group_required = u"Administrador"
-    fields = ['nome', 'uf']
-    template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('listar-estado')
-
-class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin,CreateView):
-    model = Cidade
-    group_required = u"Administrador"
-    fields = ['nome', 'estado']
-    template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('listar-cidade')
-
 class RegistrarPerfil(CreateView):
     template_name = '../../usuarios/templates/usuarios/registrar.html'
     form_class = PerfilCreateForm
@@ -41,9 +27,8 @@ class RegistrarPerfil(CreateView):
             grupo = get_object_or_404(Group, name="Cliente")
             self.object.groups.add(grupo)
             self.object.save()
-
-            # Salvan
-            perfil = Perfil.objects.create(
+            
+            Perfil.objects.create(
                 usuario = self.object, 
                 nome = form.cleaned_data['nome'] ,
                 email = self.object.email,
@@ -103,20 +88,6 @@ class ItemDescartavelCreate(LoginRequiredMixin, CreateView):
         return dados
 
 ############# Update #############
-class EstadoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
-    model = Estado
-    group_required = u"Administrador"
-    fields = ["nome", "uf"]
-    template_name = "cadastro/form.html"
-    success_url = reverse_lazy("listar-estado")
-
-class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
-    model = Cidade
-    group_required = u"Administrador"
-    fields = ['nome', 'estado']
-    template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('listar-cidade')
-
 class PerfilUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Perfil
     fields = ['nome', 'telefone', 'email']
@@ -162,18 +133,6 @@ class ItemDescartavelUpdate(LoginRequiredMixin, UpdateView):
 
 
 ############# Delete #############
-class EstadoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
-    model = Estado
-    group_required = u"Administrador"
-    template_name = "cadastro/excluir/form-delete.html"
-    success_url = reverse_lazy("listar-estado")
-
-class CidadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
-    model = Cidade
-    group_required = u"Administrador"
-    template_name = "cadastro/excluir/form-delete.html"
-    success_url = reverse_lazy("index")
-
 class PerfilDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Perfil
     template_name = "cadastro/excluir/form-delete.html"
@@ -197,18 +156,6 @@ class ItemDescartavelDelete(LoginRequiredMixin, DeleteView):
 
 
 ############# List #############
-class EstadoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
-    model = Estado
-    group_required = u"Administrador"
-    template_name = "cadastro/listas/estados.html"
-    paginate_by = 8
-
-class CidadeList(GroupRequiredMixin, LoginRequiredMixin, ListView):
-    model = Cidade
-    group_required = u"Administrador"
-    template_name = "cadastro/listas/cidades.html"
-    paginate_by = 8
-
 class CategoriaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Categoria
     group_required = u"Administrador"

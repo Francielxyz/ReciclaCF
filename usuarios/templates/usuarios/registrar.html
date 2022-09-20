@@ -31,15 +31,25 @@
         <hr>
         <form method="POST">
             {% csrf_token %}
-        
+
             {{ form|crispy }}
             <p class="lead" style="text-align: center!important;">
                 <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-info">Voltar</a>
-                <button type="submit" class="btn btn-success" style="background-color: #05c46b; border-color: transparent;">
+                <button type="submit" class="btn btn-success"
+                    style="background-color: #05c46b; border-color: transparent;">
                     Salvar
                 </button>
             </p>
         </form>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/jquery.mask.min.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#id_telefone').mask("(00) 00000-0000");
+    });
+</script>
 {% endblock %}

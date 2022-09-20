@@ -53,7 +53,7 @@
       height: calc(1.5em + .75rem + 2px) !important;
       border: 1px solid #ced4da !important;
     }
-  
+
     .select2-container--default .select2-selection--single .select2-selection__arrow {
       height: calc(1.5em + .75rem + 2px) !important;
     }
@@ -79,8 +79,6 @@
             </a>
             <ul>
               {% if request.user.groups.all.0.name == "Administrador" %}
-              <li><a href="{% url 'listar-estado' %}">Estado</a></li>
-              <li><a href="{% url 'listar-cidade' %}">Cidade</a></li>
               <li><a href="{% url 'listar-categoria' %}">Categoria</a></li>
               {% endif %}
               <li><a href="{% url 'listar-item-descartavel' %}">Item Descartavel</a></li>
@@ -136,10 +134,6 @@
       <h2>Bem vindo ao <span>Reclica CF</span></h2>
       <p>A reciclagem é um importante processo para a diminuição do lixo e da extração de recursos, porém não é a única
         medida responsável por uma sociedade sustentável.</p>
-      <!-- <div class="d-flex">
-        <a href="#about" class="btn-get-started scrollto">Comece</a>
-      </div> -->
-
     </div>
 
   </section>
@@ -170,7 +164,7 @@
 
     {% block section %}
     {% endblock %}
-  </main><!-- End #main -->
+  </main>End #main
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -210,6 +204,10 @@
   <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
   <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
   <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  {% block scripts %}
+  
+  {% endblock %}
 
   {{ form.media }}
 
