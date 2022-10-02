@@ -162,27 +162,48 @@ class CategoriaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     template_name = "cadastro/listas/categorias.html"
     paginate_by = 6
 
+    def get_queryset(self):
+
+        txt_nome = self.request.GET.get('nome')
+
+        if txt_nome:
+            categorias = Categoria.objects.filter(nome__icontains=txt_nome)
+        else:
+            categorias = Categoria.objects.all()
+
+        return categorias
+
 class ItemDescartavelList(LoginRequiredMixin, ListView):
     model = Item_Descartavel
     template_name = "cadastro/listas/itens_descartaveis.html"
     paginate_by = 6
 
     def get_queryset(self):
-        self.object_list = Item_Descartavel.objects.filter(usuario = self.request.user)
-        return self.object_list
+
+        txt_nome = self.request.GET.get('nome')
+
+        if txt_nome:
+            itens = Item_Descartavel.objects.filter(usuario = self.request.user, nome__icontains=txt_nome)
+        else:
+            itens = Item_Descartavel.objects.filter(usuario = self.request.user)
+
+        return itens
 
 class EnderecoArmazenamentoList(LoginRequiredMixin, ListView):
     model = Endereco_Armazenamento
     template_name = "cadastro/listas/enderecos.html"
     paginate_by = 6
 
-    # Modifica a query padrão de select que vai no banco
     def get_queryset(self):
 
-        # Faz com que apenas os dados pertencentas aquele usuário seja mostrado
-        self.object_list = Endereco_Armazenamento.objects.filter(usuario=self.request.user)
+        txt_rua = self.request.GET.get('rua')
 
-        return self.object_list
+        if txt_rua:
+            enderecos = Endereco_Armazenamento.objects.filter(usuario = self.request.user, rua__icontains=txt_rua)
+        else:
+            enderecos = Endereco_Armazenamento.objects.filter(usuario = self.request.user)
+
+        return enderecos
 
 ############# Sobre #############
 class Index(LoginRequiredMixin, TemplateView):

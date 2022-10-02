@@ -14,10 +14,25 @@
 
     <div class="container">
         <div class="table-responsive" style="overflow: hidden">
+
             <a href="{% url 'cadastrar-item-descartavel' %}" class="btn btn-success float-left"
                 style="margin-bottom: 20px; background-color: #05c46b; border-color: transparent;">
                 Novo item
             </a>
+
+            <form action="?" method="GET" class="float-right">
+
+                <input type="text" name="nome" id="" value="{{ request.GET.nome }}" class="p-1 border"
+                    autocomplete="off" placeholder="Nome do item..."
+                    style="border:solid 1px; border-radius:15px; width:250px;">
+
+                <a href="{% url 'listar-item-descartavel' %} " class="btn btn-success"
+                    style="margin-bottom: 5px; background-color: #c5c5c5; border-color: transparent;">
+                    Limpar pesquisa
+                </a>
+
+            </form>
+
             <table class="table">
                 <thead>
                     <tr>
@@ -54,30 +69,39 @@
                 </tbody>
             </table>
             <nav aria-label="Page navigation example">
-                <ul class="pagination">
+                <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page=1">Primeira</a></li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                        <a class="page-link" href="?page=1"
+                            style="border: none; background-color: transparent; color: #05c46b; font-size: 17px;">
+                            Primeira
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+                            style="border: none; background-color: transparent; color: #05c46b; font-size: 17px;">
                             Anterior
                         </a>
                     </li>
                     {% endif %}
 
                     <li class="page-item">
-                        <a class="page-link" href="#">
+                        <a class="page-link" href="#"
+                            style="border: none; background-color: transparent; color: #05c46b; font-size: 17px;">
                             {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
                         </a>
                     </li>
 
                     {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}"
+                            style="border: none; background-color: transparent; color: #05c46b; font-size: 17px;">
                             Próximo
                         </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}"
+                            style="border: none; background-color: transparent; color: #05c46b; font-size: 17px;">
                             Última
                         </a>
                     </li>
