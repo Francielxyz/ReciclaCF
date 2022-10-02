@@ -1,7 +1,7 @@
 from dal import autocomplete
 
 from django import forms
-from .models import Endereco_Armazenamento, Perfil
+from .models import Endereco_Armazenamento, Perfil, Item_Descartavel
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 class EnderecoArmazenamentoForm(forms.ModelForm):
     class Meta:
         model = Endereco_Armazenamento
-        fields = ['cep', 'bairro', 'rua', 'numero', 'endereco_compartilhado', 'observacao', 'cidade']
+        fields = ['cep', 'bairro', 'rua', 'numero', 'endereco_compartilhado', 'observacao', 'cidade',]
         widgets = {
             'cidade': autocomplete.ModelSelect2(
                 url='buscar-cidade',
@@ -20,6 +20,31 @@ class EnderecoArmazenamentoForm(forms.ModelForm):
                         'data-minimum-input-length': 3,
                     },
                 )
+        }
+
+class ItemDescatavelForm(forms.ModelForm):
+    class Meta:
+        model = Item_Descartavel
+        fields = ['nome', 'quantidade', 'categoria', 'endereco_armazenamento', 'observacao',]
+        widgets = {
+            'categoria': autocomplete.ModelSelect2(
+                url='buscar-categoria',
+                attrs={
+                        # Set some placeholder
+                        'data-placeholder': 'Buscar categoria...',
+                        # Only trigger autocompletion after 3 characters have been typed
+                        'data-minimum-input-length': 3,
+                    },
+                ),
+            # 'endereco_armazenamento': autocomplete.ModelSelect2(
+            #     url='buscar-endereco',
+            #     attrs={
+            #             # Set some placeholder
+            #             'data-placeholder': 'Buscar endereço...',
+            #             # Only trigger autocompletion after 3 characters have been typed
+            #             'data-minimum-input-length': 3,
+            #         },
+            #     ),             
         }
 
 class PerfilCreateForm(UserCreationForm):

@@ -35,6 +35,7 @@
   <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/datatables.min.css' %}" rel="stylesheetDatatables">
 
   <!-- Variables CSS Files. Uncomment your preferred color scheme -->
   <link href="{% static 'css/variables-green.css' %}" rel="stylesheet">
@@ -139,13 +140,13 @@
   </section>
   {% endblock %}
 
-  <main id="main" style="min-height:100%;
-   position:relative;">
+  <!-- <main id="main" style="min-height:100%;
+   position:relative;"> -->
 
     <!-- ======= Clients Section ======= -->
-    <section id="clients" class="clients">
+    <!-- <section id="clients" class="clients"> -->
       {% block conteudo2 %}
-      <div class="container" data-aos="zoom-out">
+      <!-- <div class="container" data-aos="zoom-out">
         <div class="clients-slider swiper">
           <div class="swiper-wrapper align-items-center">
             <div class="swiper-slide"><img src="{% static 'img/clients/client-1.png' %}" class="img-fluid" alt=""></div>
@@ -158,13 +159,13 @@
             <div class="swiper-slide"><img src="{% static 'img/clients/client-8.png' %}" class="img-fluid" alt=""></div>
           </div>
         </div>
-      </div>
+      </div> -->
       {% endblock %}
-    </section>
+    <!-- </section> -->
 
     {% block section %}
     {% endblock %}
-  </main>End #main
+  <!-- </main>End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -204,6 +205,44 @@
   <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
   <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
   <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  <script src="{% static 'js/datatables.min.js' %}"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('table').DataTable({
+        responsive: true,
+        // "bSort": false,
+        "aaSorting": [],
+        "pageLength": 50,
+        "language": {
+          "decimal": "",
+          "emptyTable": "Sem dados disponíveis",
+          "info": "",
+          "infoEmpty": "",
+          "infoFiltered": "",
+          "infoPostFix": "",
+          "thousands": ",",
+          "lengthMenu": "",
+          "loadingRecords": "A carregar dados...",
+          "processing": "A processar...",
+          "search": "Pesquisar",
+          "zeroRecords": "Não foram encontrados resultados",
+          "paginate": {
+            "first": "",
+            "last": "",
+            "next": "",
+            "previous": ""
+          },
+          "aria": {
+            "sortAscending": ": ordem crescente",
+            "sortDescending": ": ordem decrescente"
+          }
+        }
+      });
+    });
+    
+  </script>
 
   {% block scripts %}
   

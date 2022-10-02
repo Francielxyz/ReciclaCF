@@ -4,7 +4,7 @@ from .views import PerfilUpdate, CategoriaUpdate, EnderecoArmazenamentoUpdate, I
 from .views import PerfilDelete, CategoriaDelete, EnderecoArmazenamentoDelete, ItemDescartavelDelete
 from .views import ItemDescartavelList, CategoriaList, EnderecoArmazenamentoList
 from .views import Index
-from .views import CidadeAutocomplete
+from .views import CidadeAutocomplete, CategoriaAutocomplete, EnderecoArmazenamentoAutocomplete
 
 urlpatterns = [
     path('cadastro/categoria/', CategoriaCreate.as_view(), name='cadastrar-categoria'),
@@ -28,6 +28,8 @@ urlpatterns = [
     path('sobre/', Index.as_view(), name='sobre'),
 
     path('buscar/cidade/', CidadeAutocomplete.as_view(), name='buscar-cidade'),
+    path('buscar/categoria/', CategoriaAutocomplete.as_view(), name='buscar-categoria'),
+    path('buscar/enderco/', EnderecoArmazenamentoAutocomplete.as_view(), name='buscar-endereco'),
 
 ]
 

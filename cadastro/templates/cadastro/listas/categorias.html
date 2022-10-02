@@ -11,15 +11,12 @@
 
 {% block conteudo2 %}
 <div id="hero-animated" class="hero-animated">
-
     <div class="container col-lg-8">
-        <a href="{% url 'cadastrar-categoria' %}" class="btn btn-success float-left"
-            style="margin-bottom: 20px; background-color: #05c46b; border-color: transparent;">
-            Nova categoria
-        </a>
-
-
-        <div class="table-responsive">
+        <div class="table-responsive" style="overflow: hidden">
+            <a href="{% url 'cadastrar-categoria' %}" class="btn btn-success float-left"
+                style="margin-bottom: 20px; background-color: #05c46b; border-color: transparent;">
+                Nova categoria
+            </a>
             <table class="table">
                 <thead>
                     <tr>

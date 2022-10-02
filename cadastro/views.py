@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from dal import autocomplete
 from .models import Cidade
-from .forms import EnderecoArmazenamentoForm, PerfilCreateForm
+from .forms import EnderecoArmazenamentoForm, PerfilCreateForm, ItemDescatavelForm
 from django.contrib.auth.models import Group
 
 ############# Create #############
@@ -70,7 +70,7 @@ class EnderecoArmazenamentoCreate(LoginRequiredMixin, CreateView):
 
 class ItemDescartavelCreate(LoginRequiredMixin, CreateView):
     model = Item_Descartavel
-    fields = ['nome', 'quantidade', 'observacao', 'categoria', 'endereco_armazenamento']
+    form_class = ItemDescatavelForm
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-item-descartavel')
 
@@ -118,7 +118,7 @@ class EnderecoArmazenamentoUpdate(LoginRequiredMixin, UpdateView):
 
 class ItemDescartavelUpdate(LoginRequiredMixin, UpdateView):
     model = Item_Descartavel
-    fields = ['nome', 'quantidade', 'observacao', 'categoria', 'endereco_armazenamento']
+    form_class = ItemDescatavelForm
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-item-descartavel')
 
@@ -160,12 +160,12 @@ class CategoriaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Categoria
     group_required = u"Administrador"
     template_name = "cadastro/listas/categorias.html"
-    paginate_by = 8
+    paginate_by = 6
 
 class ItemDescartavelList(LoginRequiredMixin, ListView):
     model = Item_Descartavel
     template_name = "cadastro/listas/itens_descartaveis.html"
-    paginate_by = 8
+    paginate_by = 6
 
     def get_queryset(self):
         self.object_list = Item_Descartavel.objects.filter(usuario = self.request.user)
@@ -174,7 +174,7 @@ class ItemDescartavelList(LoginRequiredMixin, ListView):
 class EnderecoArmazenamentoList(LoginRequiredMixin, ListView):
     model = Endereco_Armazenamento
     template_name = "cadastro/listas/enderecos.html"
-    paginate_by = 8
+    paginate_by = 6
 
     # Modifica a query padrão de select que vai no banco
     def get_queryset(self):
@@ -189,6 +189,7 @@ class Index(LoginRequiredMixin, TemplateView):
     template_name = 'sobre/sobre.html'
 
 
+############# Auto Complete #############
 class CidadeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
@@ -196,6 +197,32 @@ class CidadeAutocomplete(autocomplete.Select2QuerySetView):
             return Cidade.objects.none()
 
         qs = Cidade.objects.all()
+
+        if self.q:
+            qs = qs.filter(nome__icontains=self.q)
+
+        return qs
+
+class CategoriaAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return Categoria.objects.none()
+
+        qs = Categoria.objects.all()
+
+        if self.q:
+            qs = qs.filter(nome__icontains=self.q)
+
+        return qs
+
+class EnderecoArmazenamentoAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return Endereco_Armazenamento.objects.rua()
+
+        qs = Endereco_Armazenamento.objects.all()
 
         if self.q:
             qs = qs.filter(nome__icontains=self.q)
