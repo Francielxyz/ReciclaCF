@@ -46,6 +46,8 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_extensions',
+    'debug_toolbar',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -59,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'ReciclaCF.urls'
@@ -111,6 +115,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -146,3 +155,7 @@ LOGIN_URL = 'login'
 #redirecionar para a tela de login após sair
 LOGOUT_REDIRECT_URL = 'login'
 
+# Django debub toolbar
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

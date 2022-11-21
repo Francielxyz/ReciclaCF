@@ -10,7 +10,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   {% block titulo %}
-  <title>Recicla CF</title>
+  <title>Buscaki</title>
   {% endblock %}
 
   <meta content="" name="description">
@@ -69,7 +69,7 @@
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
       <a href="{% url 'inicio' %}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-        <h1>Reclica CF<span>.</span></h1>
+        <h1>Buscaki<span>.</span></h1>
       </a>
 
       <!-- ======= Navbar ======= -->
@@ -132,7 +132,7 @@
       data-aos="zoom-out">
 
       <img src="{% static 'img/hero-carousel/hero-carousel-3.svg' %}" class="img-fluid animated">
-      <h2>Bem vindo ao <span>Reclica CF</span></h2>
+      <h2>Bem vindo ao <span>Buscaki</span></h2>
       <p>A reciclagem é um importante processo para a diminuição do lixo e da extração de recursos, porém não é a única
         medida responsável por uma sociedade sustentável.</p>
     </div>
@@ -143,10 +143,10 @@
   <!-- <main id="main" style="min-height:100%;
    position:relative;"> -->
 
-    <!-- ======= Clients Section ======= -->
-    <!-- <section id="clients" class="clients"> -->
-      {% block conteudo2 %}
-      <!-- <div class="container" data-aos="zoom-out">
+  <!-- ======= Clients Section ======= -->
+  <!-- <section id="clients" class="clients"> -->
+  {% block conteudo2 %}
+  <!-- <div class="container" data-aos="zoom-out">
         <div class="clients-slider swiper">
           <div class="swiper-wrapper align-items-center">
             <div class="swiper-slide"><img src="{% static 'img/clients/client-1.png' %}" class="img-fluid" alt=""></div>
@@ -160,11 +160,11 @@
           </div>
         </div>
       </div> -->
-      {% endblock %}
-    <!-- </section> -->
+  {% endblock %}
+  <!-- </section> -->
 
-    {% block section %}
-    {% endblock %}
+  {% block section %}
+  {% endblock %}
   <!-- </main>End #main -->
 
   <!-- ======= Footer ======= -->
@@ -207,7 +207,14 @@
   <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
 
   <script src="{% static 'js/datatables.min.js' %}"></script>
-<!-- 
+
+  <script>
+    $(document).ready(function () {
+
+    });
+  </script>
+
+  <!-- 
   <script>
     $(document).ready(function () {
       $('table').DataTable({
@@ -245,7 +252,7 @@
   </script> -->
 
   {% block scripts %}
-  
+
   {% endblock %}
 
   {{ form.media }}

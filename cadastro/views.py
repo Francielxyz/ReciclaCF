@@ -87,9 +87,11 @@ class ItemDescartavelCreate(LoginRequiredMixin, CreateView):
         )
         return dados
 
+
 ############# Update #############
 class PerfilUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Perfil
+    # group_required = u"Administrador", "Cliente"
     fields = ['nome', 'telefone', 'email']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('index')
@@ -183,9 +185,13 @@ class ItemDescartavelList(LoginRequiredMixin, ListView):
         txt_nome = self.request.GET.get('nome')
 
         if txt_nome:
-            itens = Item_Descartavel.objects.filter(usuario = self.request.user, nome__icontains=txt_nome)
+            itens = Item_Descartavel.objects.filter(
+                usuario = self.request.user, nome__icontains=txt_nome
+                ).select_related("categoria")
         else:
-            itens = Item_Descartavel.objects.filter(usuario = self.request.user)
+            itens = Item_Descartavel.objects.filter(
+                usuario = self.request.user
+                ).select_related("categoria")
 
         return itens
 
