@@ -11,7 +11,7 @@ urlpatterns = [
     path('cadastro/endereco/', EnderecoArmazenamentoCreate.as_view(), name='cadastrar-endereco'),
     path('cadastro/item-descartavel/', ItemDescartavelCreate.as_view(), name='cadastrar-item-descartavel'),
 
-    path('editar/perfil/<int:pk>/', PerfilUpdate.as_view(), name='editar-perfil'),
+    path('editar/perfil/', PerfilUpdate.as_view(), name='editar-perfil'),
     path('editar/categoria/<int:pk>/', CategoriaUpdate.as_view(), name='editar-categoria'),
     path('editar/endereco/<int:pk>/', EnderecoArmazenamentoUpdate.as_view(), name='editar-endereco'),
     path('editar/item-descartavel/<int:pk>/', ItemDescartavelUpdate.as_view(), name='editar-item-descartavel'),

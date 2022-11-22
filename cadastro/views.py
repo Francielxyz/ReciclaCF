@@ -1,6 +1,6 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from .models import Estado, Cidade, Perfil, Categoria, Endereco_Armazenamento, Item_Descartavel
+from .models import Cidade, Perfil, Categoria, Endereco_Armazenamento, Item_Descartavel
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin #Impedir que usuários não autenticados acessem uma determinada página
@@ -11,7 +11,6 @@ from dal import autocomplete
 from .models import Cidade
 from .forms import EnderecoArmazenamentoForm, PerfilCreateForm, ItemDescatavelForm
 from django.contrib.auth.models import Group
-
 ############# Create #############
 class RegistrarPerfil(CreateView):
     template_name = '../../usuarios/templates/usuarios/registrar.html'
@@ -89,12 +88,17 @@ class ItemDescartavelCreate(LoginRequiredMixin, CreateView):
 
 
 ############# Update #############
-class PerfilUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+class PerfilUpdate(LoginRequiredMixin, UpdateView):
     model = Perfil
-    # group_required = u"Administrador", "Cliente"
     fields = ['nome', 'telefone', 'email']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('inicio')
+    
+    def get_object(self):
+        self.object = self.request.user.perfil
+
+        return self.object 
+
 
 class CategoriaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Categoria
